@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proformas Electricista</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+    h1 { color: #2c3e50; }
+    form { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    button { margin-top: 20px; background-color: #2980b9; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #3498db; }
+    .result { margin-top: 30px; background: #ecf0f1; padding: 15px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Generador de Proformas - Contratista Electricista</h1>
+  <form id="proformaForm">
+    <label>Nombre del Cliente:</label>
+    <input type="text" id="cliente" required>
+
+    <label>Tipo de Trabajo:</label>
+    <select id="trabajo">
+      <option value="Instalación eléctrica completa">Instalación eléctrica completa</option>
+      <option value="Reparación de circuitos">Reparación de circuitos</option>
+      <option value="Instalación de luces LED">Instalación de luces LED</option>
+      <option value="Mantenimiento general">Mantenimiento general</option>
+    </select>
+
+    <label>Metros Cuadrados:</label>
+    <input type="number" id="m2" required>
+
+    <label>Materiales a usar:</label>
+    <textarea id="materiales" rows="3" placeholder="Ej. Cables, tomacorrientes, breaker..."></textarea>
+
+    <label>Precio por m² (USD):</label>
+    <input type="number" id="precio" value="25" required>
+
+    <button type="submit">Generar Proforma</button>
+  </form>
+
+  <div class="result" id="resultado" style="display:none;"></div>
+
+  <script>
+    document.getElementById('proformaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const cliente = document.getElementById('cliente').value;
+      const trabajo = document.getElementById('trabajo').value;
+      const m2 = parseFloat(document.getElementById('m2').value);
+      const precio = parseFloat(document.getElementById('precio').value);
+      const materiales = document.getElementById('materiales').value;
+      const total = m2 * precio;
+
+      const resultado = `
+        <h2>Proforma para: ${cliente}</h2>
+        <p><strong>Trabajo:</strong> ${trabajo}</p>
+        <p><strong>Área:</strong> ${m2} m²</p>
+        <p><strong>Materiales:</strong> ${materiales}</p>
+        <p><strong>Precio por m²:</strong> $${precio.toFixed(2)}</p>
+        <h3>Total: $${total.toFixed(2)} USD</h3>
+      `;
+      document.getElementById('resultado').innerHTML = resultado;
+      document.getElementById('resultado').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
